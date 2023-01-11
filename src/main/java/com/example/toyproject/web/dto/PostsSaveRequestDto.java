@@ -16,22 +16,20 @@ public class PostsSaveRequestDto {
     private Users author;
     private Bulletin bulletin;
 
-    private Integer readCnt;
-    private Integer likeCnt;
+
 
     @Builder
-    public PostsSaveRequestDto(String title, String content, Users author,Bulletin bulletin, Integer readCnt, Integer likeCnt) {
+    public PostsSaveRequestDto(String title, String content, Users author,Bulletin bulletin) {
         this.title = title;
         this.content = content;
         this.author = author;
         this.bulletin=bulletin;
-        this.readCnt = readCnt;
-        this.likeCnt = likeCnt;
+
     }
 
 
 
     public Posts toEntity() {
-        return Posts.builder().title(title).content(content).author(author).readCnt(readCnt).likeCnt(likeCnt).build();
+        return Posts.builder().title(title).content(content).author(author).build();
     }
 }
