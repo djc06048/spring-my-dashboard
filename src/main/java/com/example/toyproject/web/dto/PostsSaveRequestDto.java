@@ -1,7 +1,7 @@
 package com.example.toyproject.web.dto;
 
 
-import com.example.toyproject.domain.bulletin.Bulletin;
+
 import com.example.toyproject.domain.posts.Posts;
 import com.example.toyproject.domain.users.Users;
 import lombok.Builder;
@@ -14,16 +14,15 @@ public class PostsSaveRequestDto {
     private String title;
     private String content;
     private Users author;
-    private Bulletin bulletin;
+
 
 
 
     @Builder
-    public PostsSaveRequestDto(String title, String content, Users author,Bulletin bulletin) {
+    public PostsSaveRequestDto(String title, String content, Users author) {
         this.title = title;
         this.content = content;
         this.author = author;
-        this.bulletin=bulletin;
 
     }
 

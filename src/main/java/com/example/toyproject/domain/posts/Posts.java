@@ -1,6 +1,6 @@
 package com.example.toyproject.domain.posts;
 
-import com.example.toyproject.domain.bulletin.Bulletin;
+
 import com.example.toyproject.domain.comments.Comments;
 import com.example.toyproject.domain.users.Users;
 import jakarta.persistence.*;
@@ -31,17 +31,13 @@ public class Posts {
     private Users author;
 
 
-    @ManyToOne
-    @JoinColumn(name = "bulletin_id")
-    private Bulletin bulletin;
 
     @OneToMany(mappedBy = "post",fetch = FetchType.LAZY)
     private List<Comments> comments;
 
     @Builder
-    public Posts(Users author,Bulletin bulletin,String title, String content) {
+    public Posts(Users author,String title, String content) {
         this.author = author;
-        this.bulletin=bulletin;
         this.title = title;
         this.content = content;
         this.comments=new ArrayList<Comments>();

@@ -1,7 +1,6 @@
 package com.example.toyproject.domain.comments;
 
-import com.example.toyproject.domain.bulletin.Bulletin;
-import com.example.toyproject.domain.bulletin.BulletinRepository;
+
 import com.example.toyproject.domain.posts.Posts;
 import com.example.toyproject.domain.posts.PostsRepository;
 import com.example.toyproject.domain.users.Users;
@@ -27,12 +26,11 @@ public class CommentsRepositoryTest {
     UsersRepository usersRepository;
     @Autowired
     CommentsRepository commentsRepository;
-    @Autowired
-    BulletinRepository bulletinRepository;
+
 
     @After
     public void cleanup(){
-        bulletinRepository.deleteAll();
+
         usersRepository.deleteAll();
         commentsRepository.deleteAll();
         postsRepository.deleteAll();
@@ -46,13 +44,11 @@ public class CommentsRepositoryTest {
         String pw = "123";
         Users user = usersRepository.save(Users.builder().email(email).password(pw).username(username).build());
 
-        String category = "자유게시판";
-        Bulletin bulletin = bulletinRepository.save(Bulletin.builder().title(category).build());
 
 
         String title = "title";
         String content = "content";
-        Posts post = postsRepository.save(Posts.builder().title(title).content(content).author(user).bulletin(bulletin).build());
+        Posts post = postsRepository.save(Posts.builder().title(title).content(content).author(user).build());
 
         String comment_username = "park";
         String comment_email = "park@naver.com";

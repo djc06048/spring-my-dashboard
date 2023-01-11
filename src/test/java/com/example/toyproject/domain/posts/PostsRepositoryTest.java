@@ -1,9 +1,7 @@
 package com.example.toyproject.domain.posts;
 
-import com.example.toyproject.domain.bulletin.Bulletin;
-import com.example.toyproject.domain.bulletin.BulletinRepository;
-import com.example.toyproject.domain.comments.Comments;
-import com.example.toyproject.domain.comments.CommentsRepository;
+
+
 import com.example.toyproject.domain.users.Users;
 import com.example.toyproject.domain.users.UsersRepository;
 import org.junit.After;
@@ -23,17 +21,12 @@ public class PostsRepositoryTest {
     PostsRepository postsRepository;
     @Autowired
     UsersRepository usersRepository;
-    @Autowired
-    BulletinRepository bulletinRepository;
 
-    @Autowired
-    CommentsRepository commentsRepository;
+
 
     @After
     public void cleanup(){
-        bulletinRepository.deleteAll();
         usersRepository.deleteAll();
-        commentsRepository.deleteAll();
         postsRepository.deleteAll();
     }
 
@@ -45,12 +38,11 @@ public class PostsRepositoryTest {
         String pw = "123";
         Users user = usersRepository.save(Users.builder().email(email).password(pw).username(username).build());
 
-        String category = "자유게시판";
-        Bulletin bulletin = bulletinRepository.save(Bulletin.builder().title(category).build());
+
 
         String title = "title";
         String content = "content";
-        Posts post = postsRepository.save(Posts.builder().title(title).content(content).author(user).bulletin(bulletin).build());
+        Posts post = postsRepository.save(Posts.builder().title(title).content(content).author(user).build());
 
         //when
         List<Posts> postsList = postsRepository.findByTitle(title);
@@ -61,7 +53,7 @@ public class PostsRepositoryTest {
 
         assertThat(postsList.get(0).getTitle()).isEqualTo(title);
         assertThat(postsList.get(0).getContent()).isEqualTo(content);
-        assertThat(postsList.get(0).getBulletin().getBulletinId()).isEqualTo(1L);
+
         assertThat(postsList.get(0).getAuthor().getUserId()).isEqualTo(1L);
     }
 
