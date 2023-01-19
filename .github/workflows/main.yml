@@ -37,3 +37,4 @@ jobs:
         SLACK_USERNAME: 배포 결과 알려 드림
         SLACK_COLOR: ${{ job.status }}
         SLACK_FOOTER: '이건 테스트 배포 입니다.'
+      if: always()
