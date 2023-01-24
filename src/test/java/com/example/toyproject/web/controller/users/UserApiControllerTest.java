@@ -40,7 +40,7 @@ public class UserApiControllerTest {
     public void join() throws Exception{
         //given
         String email="red@kakao.com";
-        String name="blue";
+        String name="red";
         String pw="1234";
         userJoinRequestDto requestDto = userJoinRequestDto.builder()
                 .email(email).name(name).password(pw)

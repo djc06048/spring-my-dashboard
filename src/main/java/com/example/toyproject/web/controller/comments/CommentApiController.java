@@ -3,12 +3,10 @@ package com.example.toyproject.web.controller.comments;
 import com.example.toyproject.service.comments.CommentService;
 import com.example.toyproject.web.dto.comments.CommentResponseDto;
 import com.example.toyproject.web.dto.comments.CommentSaveRequestDto;
+import com.example.toyproject.web.dto.comments.CommentUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -25,4 +23,13 @@ public class CommentApiController {
             return new CommentResponseDto(false,e.getMessage(),null);
         }
     }
+    @PutMapping()
+    public CommentResponseDto updateComment(@RequestBody CommentUpdateRequestDto req){
+        try{
+            return commentService.updateComment(req.getPostId(),req.getContent(),req.getUserId());
+        }catch(Exception e){
+            return new CommentResponseDto(false,e.getMessage(),null);
+        }
+    }
+
 }

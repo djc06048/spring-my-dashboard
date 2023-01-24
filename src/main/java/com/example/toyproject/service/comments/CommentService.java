@@ -8,6 +8,7 @@ import com.example.toyproject.domain.users.Users;
 import com.example.toyproject.domain.users.UsersRepository;
 import com.example.toyproject.web.dto.comments.CommentResponseDto;
 import com.example.toyproject.web.dto.comments.CommentSaveRequestDto;
+import com.example.toyproject.web.utils.WrongCommentExceptions;
 import com.example.toyproject.web.utils.WrongPostsExceptions;
 import com.example.toyproject.web.utils.WrongUserExceptions;
 import lombok.RequiredArgsConstructor;
@@ -32,5 +33,13 @@ public class CommentService {
         user.writeComment(savedComment);
         post.writeComment(savedComment);
         return new CommentResponseDto(true,"댓글 등록 성공",savedComment);
+    }
+    @Transactional
+    public CommentResponseDto updateComment(Long postId, String content, Long userId) {
+        Users user=usersRepository.findByUserId(userId).orElseThrow(()->new WrongUserExceptions("해당하는 유저가 존재하지 않습니다"));
+        Posts post=postsRepository.findByPostId(postId).orElseThrow(()->new WrongPostsExceptions("해당하는 게시물이 존재하지 않습니다."));
+        Comments comment=commentsRepository.findByUserAndPost(user,post).orElseThrow(()->new WrongCommentExceptions("해당하는 댓글이 존재하지 않습니다."));
+        comment.update(content);
+        return new CommentResponseDto(true,"성공적으로 수정되었습니다",comment);
     }
 }
