@@ -36,24 +36,17 @@ public class Comments extends BaseTimeEntity {
 
 
     @Builder
-    public Comments(String writer,String content) {
+    public Comments(String writer,String content,Posts post) {
         this.writer=writer;
         this.content = content;
+        writtenPost(post);
     }
 
-    private void RelatedUser(Users user) {
-        this.user=user;
-        user.getComments().add(this);
-    }
-
-    private void ReleatedPost(Posts post) {
+    private void writtenPost(Posts post) {
         this.post=post;
         post.getComments().add(this);
     }
 
-    public void createdByPost(Posts post) {
-        this.post=post;
-    }
 
     public void writeUser(Users user) {
         this.user=user;

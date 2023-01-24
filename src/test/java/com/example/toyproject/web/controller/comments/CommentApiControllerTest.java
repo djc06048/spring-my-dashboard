@@ -40,10 +40,13 @@ public class CommentApiControllerTest {
         //given
         String content="comment content";
         Long postId=1L;
-        Long userId=2L;
+        Long userId=1L;
         CommentSaveRequestDto requestDto=CommentSaveRequestDto
-                .builder().content(content).
-                postId(postId).userId(userId).build();
+                .builder()
+                .content(content)
+                .postId(postId)
+                .userId(userId)
+                .build();
         URI uri= UriComponentsBuilder
                 .fromUriString("http://localhost:"+port)
                 .path("/api/v1/comments").encode()

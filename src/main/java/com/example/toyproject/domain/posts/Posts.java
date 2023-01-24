@@ -55,8 +55,4 @@ public class Posts extends BaseTimeEntity {
     }
 
 
-    public void writeComment(Comments savedComment) {
-        this.comments.add(savedComment);
-        savedComment.createdByPost(this);
-    }
 }
