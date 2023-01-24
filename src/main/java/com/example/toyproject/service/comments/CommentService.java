@@ -12,6 +12,7 @@ import com.example.toyproject.web.utils.WrongPostsExceptions;
 import com.example.toyproject.web.utils.WrongUserExceptions;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -19,6 +20,7 @@ public class CommentService {
     private final PostsRepository postsRepository;
     private final UsersRepository usersRepository;
     private final CommentsRepository commentsRepository;
+    @Transactional
     public CommentResponseDto saveComment(Long postId, String content, Long userId) {
         Users user=usersRepository.findByUserId(userId).orElseThrow(()->new WrongUserExceptions("해당하는 유저가 존재하지 않습니다"));
         Posts post=postsRepository.findByPostId(postId).orElseThrow(()->new WrongPostsExceptions("해당하는 게시물이 존재하지 않습니다."));
