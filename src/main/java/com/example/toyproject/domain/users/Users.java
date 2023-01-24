@@ -12,33 +12,46 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @Entity
-@Table(name = "user")
+
 public class Users {
     @Id
+    @Column(name="user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long UserId;
+    private Long userId;
 
-    @Column(name="email")
+    @Column(name = "email")
     private String email;
-
     @Column(name = "password")
     private String password;
 
-    @Column(name = "username")
-    private String username;
+    @Column(name="name")
+    private String name;
 
-    @OneToMany(mappedBy = "author",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    private List<Posts> posts;
+//    @Enumerated(value=EnumType.STRING)
+//    private UserRole userRole;
 
-    @OneToMany(mappedBy="author",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    private List<Comments> comments;
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<Posts> posts=new ArrayList<>();
+
+    @OneToMany(mappedBy="user",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<Comments> comments=new ArrayList<>();
 
     @Builder
-    public Users(String email, String password, String username) {
+    public Users(String email,String name,String password) {
+        this.email = email;
+        this.name=name;
+        this.password = password;
+
+    }
+    @Builder
+    public Users(String email,String password) {
         this.email = email;
         this.password = password;
-        this.username = username;
-        this.posts = new ArrayList<Posts>();
-        this.comments = new ArrayList<Comments>();
+
+    }
+
+    public void writePost(Posts savedPost) {
+        this.posts.add(savedPost);
+        savedPost.createdByUser(this);
     }
 }

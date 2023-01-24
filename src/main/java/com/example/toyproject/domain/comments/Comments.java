@@ -1,6 +1,7 @@
 package com.example.toyproject.domain.comments;
 
 
+import com.example.toyproject.domain.BaseTimeEntity;
 import com.example.toyproject.domain.posts.Posts;
 import com.example.toyproject.domain.users.Users;
 import jakarta.persistence.*;
@@ -11,29 +12,30 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @Entity
-@Table(name="comments")
-public class Comments {
+
+public class Comments extends BaseTimeEntity {
     @Id
+    @Column(name="comment_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long commentId;
 
     @Column(name = "content")
     private String content;
 
-    @ManyToOne
-    @JoinColumn(name = "author_id")
-    private Users author;
+    @ManyToOne(fetch = FetchType.EAGER,cascade =CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private Users user;
 
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER,cascade =CascadeType.ALL)
     @JoinColumn(name = "post_id")
     private Posts post;
 
 
     @Builder
-    public Comments(String content, Users author, Posts post) {
+    public Comments(String content, Users user, Posts post) {
         this.content = content;
-        this.author = author;
+        this.user = user;
         this.post = post;
     }
 }

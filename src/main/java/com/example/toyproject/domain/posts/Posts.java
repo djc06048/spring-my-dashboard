@@ -1,22 +1,23 @@
 package com.example.toyproject.domain.posts;
 
 
+import com.example.toyproject.domain.BaseTimeEntity;
 import com.example.toyproject.domain.comments.Comments;
 import com.example.toyproject.domain.users.Users;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table(name="posts")
-public class Posts {
+public class Posts extends BaseTimeEntity {
     @Id
+    @Column(name="post_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long postId;
 
@@ -26,20 +27,31 @@ public class Posts {
     @Column(length=500, columnDefinition = "TEXT", nullable = false)
     private String content;
 
-    @ManyToOne
-    @JoinColumn(name="author_id")
-    private Users author;
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @JoinColumn(name="user_id")
+    private Users user;
 
+    @Column(length=100,nullable=false)
+    private String writer;
 
+//    @OneToMany(mappedBy = "post",cascade = CascadeType.ALL)
+//    private List<Comments> comments;
 
-    @OneToMany(mappedBy = "post",fetch = FetchType.LAZY)
-    private List<Comments> comments;
-
+    public Posts(){}
     @Builder
-    public Posts(Users author,String title, String content) {
-        this.author = author;
+    public Posts(String writer,String title, String content) {
+        this.writer = writer;
         this.title = title;
         this.content = content;
-        this.comments=new ArrayList<Comments>();
     }
+
+    public void update(String title,String content){
+        this.title=title;
+        this.content=content;
+    }
+    public void createdByUser(Users user){
+        this.user=user;
+    }
+
+
 }

@@ -1,6 +1,6 @@
 package com.example.toyproject.domain.users;
 
-import org.apache.catalina.User;
+
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,23 +16,24 @@ public class UsersRepositoryTest {
     @Autowired
     UsersRepository usersRepository;
 
-    @After
-    public void cleanup(){
-        usersRepository.deleteAll();
-    }
+//    @After
+//    public void cleanup(){
+//        usersRepository.deleteAll();
+//    }
 
     @Test
     public void user_save(){
         //given
-        String username = "cheol";
-        String email = "cheol@naver.com";
-        String pw = "123";
-        Users user = usersRepository.save(Users.builder().email(email).password(pw).username(username).build());
+        String email = "blue@kakao.com";
+        String pw = "1111";
+        String name="blue";
+        Users user = usersRepository.save(Users.builder().password(pw).email(email).name(name).build());
 
         //when
         List<Users> usersList=usersRepository.findAll();
 
+
         //then
-        assertThat(usersList.get(0).getUsername()).isEqualTo(username);
+        assertThat(usersList.get(usersList.size()-1).getEmail()).isEqualTo(email);
     }
 }
