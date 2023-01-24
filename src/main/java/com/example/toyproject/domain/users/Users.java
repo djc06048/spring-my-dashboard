@@ -54,4 +54,9 @@ public class Users {
         this.posts.add(savedPost);
         savedPost.createdByUser(this);
     }
+
+    public void writeComment(Comments savedComment) {
+        this.comments.add(savedComment);
+        savedComment.writeUser(this);
+    }
 }

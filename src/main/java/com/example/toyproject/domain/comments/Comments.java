@@ -19,8 +19,11 @@ public class Comments extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long commentId;
 
-    @Column(name = "content")
+    @Column(name = "comment_content")
     private String content;
+
+    @Column(name="comment_writer")
+    private String writer;
 
     @ManyToOne(fetch = FetchType.EAGER,cascade =CascadeType.ALL)
     @JoinColumn(name = "user_id")
@@ -33,9 +36,26 @@ public class Comments extends BaseTimeEntity {
 
 
     @Builder
-    public Comments(String content, Users user, Posts post) {
+    public Comments(String writer,String content) {
+        this.writer=writer;
         this.content = content;
-        this.user = user;
-        this.post = post;
+    }
+
+    private void RelatedUser(Users user) {
+        this.user=user;
+        user.getComments().add(this);
+    }
+
+    private void ReleatedPost(Posts post) {
+        this.post=post;
+        post.getComments().add(this);
+    }
+
+    public void createdByPost(Posts post) {
+        this.post=post;
+    }
+
+    public void writeUser(Users user) {
+        this.user=user;
     }
 }

@@ -10,6 +10,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -34,8 +35,8 @@ public class Posts extends BaseTimeEntity {
     @Column(length=100,nullable=false)
     private String writer;
 
-//    @OneToMany(mappedBy = "post",cascade = CascadeType.ALL)
-//    private List<Comments> comments;
+    @OneToMany(mappedBy = "post",cascade = CascadeType.ALL)
+    private List<Comments> comments=new ArrayList<>();
 
     public Posts(){}
     @Builder
@@ -54,4 +55,8 @@ public class Posts extends BaseTimeEntity {
     }
 
 
+    public void writeComment(Comments savedComment) {
+        this.comments.add(savedComment);
+        savedComment.createdByPost(this);
+    }
 }

@@ -39,9 +39,9 @@ public class UserApiControllerTest {
     @Transactional
     public void join() throws Exception{
         //given
-        String email="blue@kakao.com";
+        String email="red@kakao.com";
         String name="blue";
-        String pw="123";
+        String pw="1234";
         userJoinRequestDto requestDto = userJoinRequestDto.builder()
                 .email(email).name(name).password(pw)
                 .build();
