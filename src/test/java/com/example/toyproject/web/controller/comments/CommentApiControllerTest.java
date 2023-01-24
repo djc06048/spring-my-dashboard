@@ -40,7 +40,7 @@ public class CommentApiControllerTest {
         //given
         String content="comment content";
         Long postId=1L;
-        Long userId=1L;
+        Long userId=3L;
         CommentSaveRequestDto requestDto=CommentSaveRequestDto
                 .builder()
                 .content(content)

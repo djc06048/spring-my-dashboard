@@ -26,11 +26,11 @@ public class CommentService {
         Posts post=postsRepository.findByPostId(postId).orElseThrow(()->new WrongPostsExceptions("해당하는 게시물이 존재하지 않습니다."));
         Comments comment= Comments.builder()
                 .writer(user.getEmail())
-                .content(content).post(post)
+                .content(content)
                 .build();
         Comments savedComment=commentsRepository.save(comment);
         user.writeComment(savedComment);
-
+        post.writeComment(savedComment);
         return new CommentResponseDto(true,"댓글 등록 성공",savedComment);
     }
 }
