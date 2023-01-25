@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.*;
 public class PostApiController {
     private final PostsService postsService;
     private final UserService userService;
-    @PostMapping("posts/users/{userId}")
-    public PostsResponseDto save(@RequestBody PostsSaveRequestDto requestDto,@PathVariable Long userId){
+    @PostMapping(value="posts", consumes = "application/json")
+    public PostsResponseDto save(@RequestBody PostsSaveRequestDto requestDto){
         try{
-            return postsService.save(requestDto,userId);
+            return postsService.save(requestDto, requestDto.getUserId());
         }catch(Exception e){
             PostsResponseDto res=new PostsResponseDto(false,e.getMessage(),null);
             return res;

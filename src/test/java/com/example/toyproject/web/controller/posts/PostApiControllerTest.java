@@ -57,17 +57,19 @@ public class PostApiControllerTest {
     @Transactional
     public void save() throws Exception{
         //given
-        String title="title";
-        String content="content";
+        String title="title2";
+        String content="content2";
+        Long userId=1L;
         PostsSaveRequestDto requestDto= PostsSaveRequestDto.builder()
                 .title(title)
                 .content(content)
+                .userId(userId)
                 .build();
-        Long userId=1L;
+
         URI uri= UriComponentsBuilder
                 .fromUriString("http://localhost:"+port)
-                        .path("/api/v1/posts/users/{userId}").encode()
-                        .build().expand(userId).toUri();
+                        .path("/api/v1/posts").encode()
+                        .build().toUri();
         System.out.println("uri = " + uri);
         //when
         //HttpHeaders headers = new HttpHeaders();
