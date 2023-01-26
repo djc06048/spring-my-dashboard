@@ -14,4 +14,6 @@ spring.jpa:
     #defer-datasource-initialization: true   #resource?? ?? ???? db??
 #spring.sql.init.mode: always
 server.servlet.encoding.force-response: true
-
+spring:
+  profiles:
+    include: oauth
