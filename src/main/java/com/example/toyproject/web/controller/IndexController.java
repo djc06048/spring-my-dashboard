@@ -1,9 +1,11 @@
 package com.example.toyproject.web.controller;
 
+import com.example.toyproject.config.auth.dto.SessionUser;
 import com.example.toyproject.service.comments.CommentService;
 import com.example.toyproject.service.posts.PostsService;
 import com.example.toyproject.web.dto.comments.CommentResponseDto;
 import com.example.toyproject.web.dto.posts.PostsResponseDto;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,8 +15,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RequiredArgsConstructor
 @Controller
 public class IndexController {
-    public final PostsService postsService;
-    public final CommentService commentService;
+    private final PostsService postsService;
+    private final CommentService commentService;
+    private final HttpSession httpSession;
     @GetMapping("/")
     public String index(Model model){
         model.addAttribute("posts",postsService.findAllDesc());
