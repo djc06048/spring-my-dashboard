@@ -1,0 +1,31 @@
+{{>layout/header}}
+
+<h1>댓글 수정</h1>
+
+<div class="col-md-12">
+    <div class="col-md-4">
+        <form>
+            <div class="form-group">
+                <label for="title">글 번호</label>
+                <input type="text" class="form-control" id="comment-postId" value="{{comment.postId}}" readonly>
+            </div>
+            <div class="form-group">
+                <label for="title">댓글 번호</label>
+                <input type="text" class="form-control" id="comment-id" value="{{comment.commentId}}" readonly>
+            </div>
+            <div class="form-group">
+                <label for="author"> 작성자 </label>
+                <input type="text" class="form-control" id="comment-author" value="{{comment.userId}}" readonly>
+            </div>
+            <div class="form-group">
+                <label for="content"> 댓글 내용 </label>
+                <textarea class="form-control" id="comment-content">{{comment.comment}}</textarea>
+            </div>
+        </form>
+        <a href="/" role="button" class="btn btn-secondary">취소</a>
+        <button type="button" class="btn btn-primary" id="btn-comment-update">수정 완료</button>
+        <!--        <button type="button" class="btn btn-danger" id="btn-delete">삭제</button>-->
+    </div>
+</div>
+
+{{>layout/footer}}

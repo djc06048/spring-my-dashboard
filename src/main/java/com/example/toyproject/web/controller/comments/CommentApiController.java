@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/comments")
+@RequestMapping("/api/v1")
 @RestController
 public class CommentApiController {
     private final CommentService commentService;
 
-    @PostMapping()
+    @PostMapping("comments")
     public CommentResponseDto saveComment(@RequestBody CommentSaveRequestDto req){
         try{
             return commentService.saveComment(req.getPostId(),req.getContent(),req.getUserId());
@@ -23,13 +23,22 @@ public class CommentApiController {
             return new CommentResponseDto(false,e.getMessage(),null);
         }
     }
-    @PutMapping()
-    public CommentResponseDto updateComment(@RequestBody CommentUpdateRequestDto req){
+    @PutMapping("comments/posts/{postId}/users/{userId}")
+    public CommentResponseDto updateComment(@RequestBody CommentUpdateRequestDto req,@PathVariable Long postId,@PathVariable Long userId){
         try{
-            return commentService.updateComment(req.getPostId(),req.getContent(),req.getUserId());
+            return commentService.updateComment(postId,req.getContent(),userId);
         }catch(Exception e){
             return new CommentResponseDto(false,e.getMessage(),null);
         }
     }
 
+    @GetMapping("/comments/{commentId}")
+    public CommentResponseDto findByCommentId(@PathVariable Long commentId){
+        try{
+            return commentService.findByCommentId(commentId);
+        }catch(Exception e){
+            return new CommentResponseDto(false, e.getMessage(), null);
+        }
+
+    }
 }

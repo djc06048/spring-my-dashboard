@@ -7,15 +7,15 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class CommentUpdateRequestDto {
-    private Long postId;
+
     private String content;
-    private Long userId;
+
 
     @Builder
-    public CommentUpdateRequestDto(Long postId, String content, Long userId) {
-        this.postId = postId;
+    public CommentUpdateRequestDto(String content) {
+
         this.content = content;
-        this.userId = userId;
+
     }
 
 }

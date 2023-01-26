@@ -63,10 +63,10 @@ public class PostsService {
     }
 
     @Transactional(readOnly = true)
-    public PostsResponseDto findById(Long id) {
-        Posts entity=postsRepository.findById(id)
+    public PostsResponseDto findByPostId(Long postId) {
+        Posts entity=postsRepository.findById(postId)
                 .orElseThrow(()
-                        ->new WrongPostsExceptions("해당 게시글이 없습니다. id="+id));
+                        ->new WrongPostsExceptions("해당 게시글이 없습니다. id="+postId));
         return new PostsResponseDto(true,"해당하는 게시물을 불러왔습니다",entity);
     }
 

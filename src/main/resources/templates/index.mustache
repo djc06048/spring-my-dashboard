@@ -16,15 +16,19 @@
             <th>제목</th>
             <th>작성자
             <th>최종수정일</th>
+            <th>글 수정</th>
+            <th>댓글 확인하기</th>
         </tr>
         </thead>
         <tbody id="tbody">
         {{#posts}}
             <tr>
                 <td>{{postId}}</td>
-                <td><a href="/posts/update/{{postId}}">{{title}}</a></td>
+                <td>{{title}}</td>
                 <td>{{writer}}</td>
                 <td>{{modifiedDate}}</td>
+                <th><a href="/posts/update/{{postId}}" class="btn btn-warning">글 수정하기️</a></th>
+                <th><a href="/posts/{{postId}}/comments" class="btn btn-info">댓글 확인하기</a></th>
             </tr>
         {{/posts}}
         </tbody>

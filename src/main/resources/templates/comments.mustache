@@ -1,0 +1,29 @@
+{{>layout/header}}
+
+<h1>댓글</h1>
+<div class="col-md-12">
+    <table class="table table-horizontal table-bordered">
+        <thead class="thead-strong">
+        <tr>
+            <th>작성자</th>
+            <th>내용</th>
+            <th>글 번호</th>
+            <th>최종 수정일</th>
+            <th>댓글 수정하기</th>
+        </tr>
+        </thead>
+        <tbody id="tbody">
+        {{#comments}}
+            <tr>
+                <td>{{userId}}</td>
+                <td>{{content}}</td>
+                <td>{{postId}}</td>
+                <td>{{modifiedDate}}</td>
+                <td><a href="/comments/update/{{commentId}}" class="btn btn-info">댓글 수정하기</a></td>
+            </tr>
+        {{/comments}}
+        </tbody>
+    </table>
+</div>
+
+{{>layout/footer}}

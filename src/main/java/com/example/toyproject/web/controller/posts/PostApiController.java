@@ -40,7 +40,7 @@ public class PostApiController {
     @GetMapping("/posts/{postId}")
     public PostsResponseDto findById(@PathVariable Long postId){
         try{
-            PostsResponseDto res=postsService.findById(postId);
+            PostsResponseDto res=postsService.findByPostId(postId);
             return res;
         }catch(Exception e){
             return new PostsResponseDto(false,e.getMessage(),null);

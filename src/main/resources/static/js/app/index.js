@@ -1,15 +1,17 @@
 var main = {
     init : function () {
         var _this = this;
-        console.log(_this);
+
         $('#btn-save').on('click', function () {
             _this.save();
         });
 
-        $('#btn-update').on('click', function () {
-            _this.update();
+        $('#btn-post-update').on('click', function () {
+            _this.postUpdate();
         });
-
+        $('#btn-comment-update').on('click', function () {
+            _this.commentUpdate();
+        });
         // $('#btn-delete').on('click', function () {
         //     _this.delete();
         // });
@@ -34,7 +36,7 @@ var main = {
             alert(JSON.stringify(error));
         });
     },
-    update : function () {
+    postUpdate : function () {
         var data = {
             title: $('#title').val(),
             content: $('#content').val()
@@ -47,6 +49,28 @@ var main = {
         $.ajax({
             type: 'PUT',
             url: '/api/v1/posts/'+postId+'/users/'+userId,
+            dataType: 'json',
+            contentType:'application/json; charset=utf-8',
+            data: JSON.stringify(data)
+        }).done(function() {
+            alert('글이 수정되었습니다.');
+            window.location.href = '/';
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    },
+    commentUpdate : function () {
+        var data = {
+            content: $('#comment-content').val()
+        };
+
+        var commentPostId = $('#comment-postId').val();
+        var commentUserId=$('#comment-author').val();
+
+
+        $.ajax({
+            type: 'PUT',
+            url: '/api/v1/comments/posts/'+commentPostId+'/users/'+commentUserId,
             dataType: 'json',
             contentType:'application/json; charset=utf-8',
             data: JSON.stringify(data)

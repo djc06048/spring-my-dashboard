@@ -75,19 +75,17 @@ public class CommentApiControllerTest {
     @Test
     @Transactional
     public void updateComment() throws Exception{
-        String content="updateComment";
+        String content="updateComment!!!";
         Long postId=1L;
         Long userId=3L;
         CommentUpdateRequestDto requestDto=CommentUpdateRequestDto
                 .builder()
-                .userId(userId)
-                .postId(postId)
                 .content(content)
                 .build();
         URI uri= UriComponentsBuilder
                 .fromUriString("http://localhost:"+port)
-                .path("/api/v1/comments").encode()
-                .build().toUri();
+                .path("/api/v1/comments/posts/{postId}/users/{userId}").encode()
+                .build().expand(postId,userId).toUri();
         System.out.println("uri = " + uri);
         //when
         System.out.println(" ###UPDATE START");

@@ -8,6 +8,8 @@ import com.example.toyproject.domain.users.Users;
 import com.example.toyproject.domain.users.UsersRepository;
 import com.example.toyproject.web.dto.comments.CommentResponseDto;
 import com.example.toyproject.web.dto.comments.CommentSaveRequestDto;
+import com.example.toyproject.web.dto.comments.CommentsListResponseDto;
+import com.example.toyproject.web.dto.posts.PostsListResponseDto;
 import com.example.toyproject.web.utils.WrongCommentExceptions;
 import com.example.toyproject.web.utils.WrongPostsExceptions;
 import com.example.toyproject.web.utils.WrongUserExceptions;
@@ -15,12 +17,25 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class CommentService {
     private final PostsRepository postsRepository;
     private final UsersRepository usersRepository;
     private final CommentsRepository commentsRepository;
+
+    @Transactional(readOnly = true)
+    public List<CommentsListResponseDto> findAllByPostId(Long postId){
+        System.out.println("postId = " + commentsRepository.findByPost_PostId(postId));
+        return commentsRepository
+                .findByPost_PostId(postId).stream()
+                .map(CommentsListResponseDto::new)
+                .collect(Collectors.toList());
+
+    }
     @Transactional
     public CommentResponseDto saveComment(Long postId, String content, Long userId) {
         Users user=usersRepository.findByUserId(userId).orElseThrow(()->new WrongUserExceptions("해당하는 유저가 존재하지 않습니다"));
@@ -41,5 +56,11 @@ public class CommentService {
         Comments comment=commentsRepository.findByUserAndPost(user,post).orElseThrow(()->new WrongCommentExceptions("해당하는 댓글이 존재하지 않습니다."));
         comment.update(content);
         return new CommentResponseDto(true,"성공적으로 수정되었습니다",comment);
+    }
+    @Transactional(readOnly = true)
+    public CommentResponseDto findByCommentId(Long commentId) {
+        Comments entity=commentsRepository.findById(commentId)
+                .orElseThrow(()->new WrongCommentExceptions("해당하는 댓글이 없습니다. id="+commentId));
+        return new CommentResponseDto(true,"해당하는 댓글을 불러왔습니다",entity);
     }
 }
