@@ -19,8 +19,10 @@ public class PostApiController {
     private final UserService userService;
     @PostMapping(value="posts", consumes = "application/json")
     public PostsResponseDto save(@RequestBody PostsSaveRequestDto requestDto){
+        System.out.println("requestDto.getContent() = " + requestDto.getContent());
+        System.out.println("requestDto.getUserId() = " + requestDto.getUserId());
         try{
-            return postsService.save(requestDto, requestDto.getUserId());
+            return postsService.save(requestDto, Long.parseLong(requestDto.getUserId()));
         }catch(Exception e){
             PostsResponseDto res=new PostsResponseDto(false,e.getMessage(),null);
             return res;

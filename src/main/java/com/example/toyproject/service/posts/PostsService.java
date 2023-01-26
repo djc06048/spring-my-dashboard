@@ -6,6 +6,7 @@ import com.example.toyproject.domain.posts.PostsRepository;
 import com.example.toyproject.domain.users.Users;
 import com.example.toyproject.domain.users.UsersRepository;
 import com.example.toyproject.service.users.UserService;
+import com.example.toyproject.web.dto.posts.PostsListResponseDto;
 import com.example.toyproject.web.dto.posts.PostsResponseDto;
 import com.example.toyproject.web.dto.posts.PostsSaveRequestDto;
 import com.example.toyproject.web.dto.posts.PostsUpdateRequestDto;
@@ -15,7 +16,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -23,6 +26,13 @@ public class PostsService {
     private final PostsRepository postsRepository;
     private final UsersRepository usersRepository;
     private final UserService userService;
+    @Transactional(readOnly = true)
+    public List<PostsListResponseDto> findAllDesc(){
+        return postsRepository.findAllDesc().stream()
+                .map(PostsListResponseDto::new)
+                .collect(Collectors.toList());
+
+    }
     @Transactional
     public PostsResponseDto save(PostsSaveRequestDto req,Long userId) {
         Users user=usersRepository.findByUserId(userId).orElseThrow(()->new WrongUserExceptions("해당하는 유저가 존재하지 않습니다"));

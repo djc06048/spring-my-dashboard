@@ -13,3 +13,5 @@ spring.jpa:
     database-platform: org.hibernate.dialect.MySQL5Dialect
     #defer-datasource-initialization: true   #resource?? ?? ???? db??
 #spring.sql.init.mode: always
+server.servlet.encoding.force-response: true
+

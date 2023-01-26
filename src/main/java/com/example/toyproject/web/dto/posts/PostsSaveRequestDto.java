@@ -13,11 +13,11 @@ import lombok.NoArgsConstructor;
 public class PostsSaveRequestDto {
     private String title;
     private String content;
-    private Long userId;
+    private String userId;
 
 
     @Builder
-    public PostsSaveRequestDto(String title, String content,Long userId) {
+    public PostsSaveRequestDto(String title, String content,String userId) {
         this.title = title;
         this.content = content;
         this.userId=userId;

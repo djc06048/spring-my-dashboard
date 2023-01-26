@@ -57,9 +57,9 @@ public class PostApiControllerTest {
     @Transactional
     public void save() throws Exception{
         //given
-        String title="title2";
-        String content="content2";
-        Long userId=1L;
+        String title="title4";
+        String content="content4";
+        String userId="3";
         PostsSaveRequestDto requestDto= PostsSaveRequestDto.builder()
                 .title(title)
                 .content(content)
@@ -84,7 +84,7 @@ public class PostApiControllerTest {
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         System.out.println("responseEntity.toString() = " + responseEntity.toString());
         if(responseEntity.getBody().getSuccess().equals(true)){
-            assertThat(responseEntity.getBody().getUserId()).isEqualTo(userId);
+            assertThat(responseEntity.getBody().getUserId()).isEqualTo(Long.parseLong(userId));
             assertThat(responseEntity.getBody().getMessage()).isEqualTo("성공적으로 등록되었습니다");
 
         }else{
