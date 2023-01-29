@@ -12,13 +12,13 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig  {
     private final CustomOAuth2UserService customOAuth2UserService;
-   @Bean
+    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws  Exception{
        http.csrf().disable().headers().frameOptions().disable();
        http.authorizeHttpRequests()
                .requestMatchers("/","/css/**","/images/**","/js/**","/h2-console/**").permitAll()
                .requestMatchers("/api/v1/**").hasRole(Role.USER.name())
-               .anyRequest().authenticated()
+               .anyRequest().permitAll()
                .and().logout().logoutSuccessUrl("/")
                .and().oauth2Login().userInfoEndpoint().userService(customOAuth2UserService);
        return http.build();

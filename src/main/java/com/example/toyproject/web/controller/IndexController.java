@@ -1,5 +1,6 @@
 package com.example.toyproject.web.controller;
 
+import com.example.toyproject.config.auth.LoginUser;
 import com.example.toyproject.config.auth.dto.SessionUser;
 import com.example.toyproject.service.comments.CommentService;
 import com.example.toyproject.service.posts.PostsService;
@@ -19,12 +20,20 @@ public class IndexController {
     private final CommentService commentService;
     private final HttpSession httpSession;
     @GetMapping("/")
-    public String index(Model model){
+    public String index(Model model, @LoginUser SessionUser user){
         model.addAttribute("posts",postsService.findAllDesc());
+        if (user != null) {
+            model.addAttribute("userName", user.getName());
+        }
         return "index";
     }
     @GetMapping("/posts/save")
-    public String postsSave() {
+    public String postsSave(Model model)
+    {
+        SessionUser user=(SessionUser) httpSession.getAttribute("user");
+        if (user != null) {
+            model.addAttribute("user", user);
+        }
         return "posts-save";
     }
 
