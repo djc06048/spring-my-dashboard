@@ -12,7 +12,6 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @Entity
-@Table(name="GenerationUser")
 public class Users {
     @Id
     @Column(name="user_id")
