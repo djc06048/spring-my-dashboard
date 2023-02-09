@@ -1,39 +1,66 @@
-package com.example.toyproject.domain.user;
+package com.example.toyproject.domain.users;
 
 import com.example.toyproject.domain.BaseTimeEntity;
+import com.example.toyproject.domain.comments.Comments;
+import com.example.toyproject.domain.posts.Posts;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-
+import java.util.ArrayList;
+import java.util.List;
 @Getter
-@NoArgsConstructor
+
 @Entity
-@Table(name="user_entity")
-public class User extends BaseTimeEntity {
+public class Users extends BaseTimeEntity {
     @Id
+    @Column(name="user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column(nullable=false)
-    private String name;
-    @Column(nullable=false)
+    private Long userId;
+
+    @Column(name = "email")
     private String email;
-    @Column
-    private String picture;
+    @Column(name = "password")
+    private String password;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable=false)
     private Role role;
 
+    @Column
+    private String picture;
+    @Column(name="name")
+    private String name;
+
+
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<Posts> posts=new ArrayList<>();
+
+    @OneToMany(mappedBy="user",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<Comments> comments=new ArrayList<>();
+
+
     @Builder
-    public User(String name, String email, String picture, Role role) {
+    public Users(String name, String email, String picture,String password, Role role) {
         this.name = name;
         this.email = email;
         this.picture = picture;
         this.role = role;
+        this.password = password;
     }
-    public User update(String name, String picture){
+
+    public void writePost(Posts savedPost) {
+        this.posts.add(savedPost);
+        savedPost.createdByUser(this);
+    }
+
+    public void writeComment(Comments savedComment) {
+        this.comments.add(savedComment);
+        savedComment.writeUser(this);
+    }
+    //소셜로그인파트
+    public Users update(String name, String picture){
         this.name=name;
         this.picture=picture;
         return this;
@@ -41,4 +68,5 @@ public class User extends BaseTimeEntity {
     public String getRoleKey(){
         return this.role.getKey();
     }
+
 }

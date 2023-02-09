@@ -28,7 +28,6 @@ public class UsersRepositoryTest {
         String pw = "1111";
         String name="blue";
         Users user = usersRepository.save(Users.builder().password(pw).email(email).name(name).build());
-
         //when
         List<Users> usersList=usersRepository.findAll();
 

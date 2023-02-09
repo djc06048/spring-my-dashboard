@@ -1,13 +1,8 @@
 spring.datasource:
-#  driver-class-name: com.mysql.cj.jdbc.Driver
-#  url: jdbc:mysql://localhost:3307/jpa?serverTimezone=UTC&characterEncoding=UTF-8
-#  username: root
-#  password: 1234
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:testdb
-    username: sa
-    password:
-    generate-unique-name: false
+  driver-class-name: com.mysql.cj.jdbc.Driver
+  url: jdbc:mysql://localhost:3307/jpa?serverTimezone=UTC&characterEncoding=UTF-8
+  username: root
+  password: 1234
 
 spring.jpa:
   hibernate.ddl-auto: update
@@ -15,9 +10,8 @@ spring.jpa:
   properties:
     hibernate:
       format_sql: true
-#  database-platform: org.hibernate.dialect.MySQL5Dialect
-  #defer-datasource-initialization: true   #resource?? ?? ???? db??
-#spring.sql.init.mode: always
+  database-platform: org.hibernate.dialect.MySQL5Dialect
+
 server.servlet.encoding.force-response: true
 spring:
   profiles:
@@ -26,3 +20,4 @@ spring:
     store-type: jdbc
     jdbc:
       initialize-schema: always
+
