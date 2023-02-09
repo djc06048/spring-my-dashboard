@@ -3,12 +3,11 @@ package com.example.toyproject.domain.posts;
 
 import com.example.toyproject.domain.BaseTimeEntity;
 import com.example.toyproject.domain.comments.Comments;
-import com.example.toyproject.domain.users.Users;
+import com.example.toyproject.domain.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +29,7 @@ public class Posts extends BaseTimeEntity {
 
     @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name="user_id")
-    private Users user;
+    private User user;
 
     @Column(length=100,nullable=false)
     private String writer;
@@ -50,7 +49,7 @@ public class Posts extends BaseTimeEntity {
         this.title=title;
         this.content=content;
     }
-    public void createdByUser(Users user){
+    public void createdByUser(User user){
         this.user=user;
     }
 

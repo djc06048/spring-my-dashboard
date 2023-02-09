@@ -1,12 +1,10 @@
 package com.example.toyproject.web.controller.comments;
 
 import com.example.toyproject.domain.posts.PostsRepository;
-import com.example.toyproject.domain.users.UsersRepository;
+import com.example.toyproject.domain.user.UserRepository;
 import com.example.toyproject.web.dto.comments.CommentResponseDto;
 import com.example.toyproject.web.dto.comments.CommentSaveRequestDto;
 import com.example.toyproject.web.dto.comments.CommentUpdateRequestDto;
-import com.example.toyproject.web.dto.posts.PostsResponseDto;
-import com.example.toyproject.web.dto.posts.PostsUpdateRequestDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +36,7 @@ public class CommentApiControllerTest {
     private PostsRepository postsRepository;
 
     @Autowired
-    private UsersRepository usersRepository;
+    private UserRepository usersRepository;
     @Test
     @Transactional
     public void saveComment() throws Exception{

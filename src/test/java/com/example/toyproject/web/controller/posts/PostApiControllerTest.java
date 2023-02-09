@@ -1,13 +1,10 @@
 package com.example.toyproject.web.controller.posts;
 
-import com.example.toyproject.domain.posts.Posts;
 import com.example.toyproject.domain.posts.PostsRepository;
-import com.example.toyproject.domain.users.Users;
-import com.example.toyproject.domain.users.UsersRepository;
+import com.example.toyproject.domain.user.UserRepository;
 import com.example.toyproject.web.dto.posts.PostsResponseDto;
 import com.example.toyproject.web.dto.posts.PostsSaveRequestDto;
 import com.example.toyproject.web.dto.posts.PostsUpdateRequestDto;
-import com.example.toyproject.web.dto.users.response.UserResponseDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,16 +15,11 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -46,7 +38,7 @@ public class PostApiControllerTest {
     private PostsRepository postsRepository;
 
     @Autowired
-    private UsersRepository usersRepository;
+    private UserRepository usersRepository;
 //    @After
 //    public void tearDown() throws Exception{
 //        postsRepository.deleteAll();
@@ -105,8 +97,8 @@ public class PostApiControllerTest {
                 .title(title)
                 .content(content)
                 .build();
-        Long userId=2L;
-        Long postId=3L;
+        Long userId=1L;
+        Long postId=1L;
         URI uri= UriComponentsBuilder
                 .fromUriString("http://localhost:"+port)
                 .path("/api/v1/posts/{postId}/users/{userId}").encode()

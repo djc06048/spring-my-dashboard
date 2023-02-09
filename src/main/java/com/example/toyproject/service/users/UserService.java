@@ -1,7 +1,7 @@
 package com.example.toyproject.service.users;
 
-import com.example.toyproject.domain.users.Users;
-import com.example.toyproject.domain.users.UsersRepository;
+import com.example.toyproject.domain.user.User;
+import com.example.toyproject.domain.user.UserRepository;
 import com.example.toyproject.web.dto.users.response.LoginResponseDto;
 import com.example.toyproject.web.dto.users.response.UserResponseDto;
 import com.example.toyproject.web.utils.WrongUserExceptions;
@@ -12,13 +12,13 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class UserService {
-    private final UsersRepository usersRepository;
+    private final UserRepository usersRepository;
 
 
     @Transactional
     public LoginResponseDto join(String email, String name, String password) {
         checkDupllicatedUser(email);
-        Users newUser=new Users(email,name,password);
+        User newUser = User.builder().email(email).name(name).password(password).build();
         usersRepository.save(newUser);
         return new LoginResponseDto(true,"가입성공",newUser.getUserId());
     }
@@ -31,7 +31,7 @@ public class UserService {
 
     @Transactional
     public LoginResponseDto login(String email, String password) {
-        Users user=usersRepository.findByEmail(email).orElse(null);
+        User user=usersRepository.findByEmail(email).orElse(null);
         LoginResponseDto res;
         if(user==null)
             return new LoginResponseDto(false,"이메일이 존재하지 않음",null);
@@ -42,12 +42,12 @@ public class UserService {
     }
     @Transactional(readOnly = true)
     public UserResponseDto findUser(Long userId) {
-        Users user=usersRepository.findByUserId(userId).orElseThrow(()->new WrongUserExceptions("해당하는 유저가 존재하지 않습니다"));
+        User user=usersRepository.findByUserId(userId).orElseThrow(()->new WrongUserExceptions("해당하는 유저가 존재하지 않습니다"));
         return new UserResponseDto(true,"유저를 가져오는데 성공했습니다",user.getUserId(),user.getEmail());
     }
     @Transactional
     public LoginResponseDto deleteUser(Long userId) {
-        Users user=usersRepository.findByUserId(userId).orElse(null);
+        User user=usersRepository.findByUserId(userId).orElse(null);
         if(user==null){
             return new LoginResponseDto(false,"해당하는 유저가 없습니다",null);
         }

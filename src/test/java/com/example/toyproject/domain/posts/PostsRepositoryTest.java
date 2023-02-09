@@ -2,16 +2,14 @@ package com.example.toyproject.domain.posts;
 
 
 
-import com.example.toyproject.domain.users.Users;
-import com.example.toyproject.domain.users.UsersRepository;
-import org.junit.After;
+import com.example.toyproject.domain.user.User;
+import com.example.toyproject.domain.user.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -21,7 +19,7 @@ public class PostsRepositoryTest {
     @Autowired
     PostsRepository postsRepository;
     @Autowired
-    UsersRepository usersRepository;
+    UserRepository usersRepository;
 
 
 
@@ -36,7 +34,7 @@ public class PostsRepositoryTest {
         //given
         String name = "cheol";
         String pw = "123";
-        Users user = usersRepository.save(Users.builder().password(pw).name(name).build());
+        User user = usersRepository.save(User.builder().password(pw).name(name).build());
 
 
 

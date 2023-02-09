@@ -1,7 +1,5 @@
 package com.example.toyproject.web.dto.users.request;
 
-import com.example.toyproject.domain.posts.Posts;
-import com.example.toyproject.domain.users.Users;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

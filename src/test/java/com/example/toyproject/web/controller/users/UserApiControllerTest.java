@@ -1,7 +1,7 @@
 package com.example.toyproject.web.controller.users;
 
-import com.example.toyproject.domain.users.Users;
-import com.example.toyproject.domain.users.UsersRepository;
+import com.example.toyproject.domain.user.User;
+import com.example.toyproject.domain.user.UserRepository;
 import com.example.toyproject.web.dto.users.request.userJoinRequestDto;
 import com.example.toyproject.web.dto.users.request.userLoginRequestDto;
 import com.example.toyproject.web.dto.users.response.LoginResponseDto;
@@ -13,8 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -33,7 +31,7 @@ public class UserApiControllerTest {
     private TestRestTemplate restTemplate;
 
     @Autowired
-    private UsersRepository usersRepository;
+    private UserRepository usersRepository;
 
     @Test
     @Transactional
@@ -61,7 +59,7 @@ public class UserApiControllerTest {
         else {
             assertThat(responseEntity.getBody().getSuccess()).isEqualTo(true);
             System.out.println(responseEntity.getBody().toString());
-            List<Users> all=usersRepository.findAll();
+            List<User> all=usersRepository.findAll();
             assertThat(all.get(all.size()-1).getEmail()).isEqualTo(email);
         }
 

@@ -4,12 +4,10 @@ import com.example.toyproject.domain.comments.Comments;
 import com.example.toyproject.domain.comments.CommentsRepository;
 import com.example.toyproject.domain.posts.Posts;
 import com.example.toyproject.domain.posts.PostsRepository;
-import com.example.toyproject.domain.users.Users;
-import com.example.toyproject.domain.users.UsersRepository;
+import com.example.toyproject.domain.user.User;
+import com.example.toyproject.domain.user.UserRepository;
 import com.example.toyproject.web.dto.comments.CommentResponseDto;
-import com.example.toyproject.web.dto.comments.CommentSaveRequestDto;
 import com.example.toyproject.web.dto.comments.CommentsListResponseDto;
-import com.example.toyproject.web.dto.posts.PostsListResponseDto;
 import com.example.toyproject.web.utils.WrongCommentExceptions;
 import com.example.toyproject.web.utils.WrongPostsExceptions;
 import com.example.toyproject.web.utils.WrongUserExceptions;
@@ -24,21 +22,22 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class CommentService {
     private final PostsRepository postsRepository;
-    private final UsersRepository usersRepository;
+    private final UserRepository usersRepository;
     private final CommentsRepository commentsRepository;
 
     @Transactional(readOnly = true)
     public List<CommentsListResponseDto> findAllByPostId(Long postId){
-        System.out.println("postId = " + commentsRepository.findByPost_PostId(postId));
         return commentsRepository
-                .findByPost_PostId(postId).stream()
+                .findByPost_PostId(postId)
+                .stream()
                 .map(CommentsListResponseDto::new)
                 .collect(Collectors.toList());
+
 
     }
     @Transactional
     public CommentResponseDto saveComment(Long postId, String content, Long userId) {
-        Users user=usersRepository.findByUserId(userId).orElseThrow(()->new WrongUserExceptions("해당하는 유저가 존재하지 않습니다"));
+        User user=usersRepository.findByUserId(userId).orElseThrow(()->new WrongUserExceptions("해당하는 유저가 존재하지 않습니다"));
         Posts post=postsRepository.findByPostId(postId).orElseThrow(()->new WrongPostsExceptions("해당하는 게시물이 존재하지 않습니다."));
         Comments comment= Comments.builder()
                 .writer(user.getEmail())
@@ -51,7 +50,7 @@ public class CommentService {
     }
     @Transactional
     public CommentResponseDto updateComment(Long postId, String content, Long userId) {
-        Users user=usersRepository.findByUserId(userId).orElseThrow(()->new WrongUserExceptions("해당하는 유저가 존재하지 않습니다"));
+        User user=usersRepository.findByUserId(userId).orElseThrow(()->new WrongUserExceptions("해당하는 유저가 존재하지 않습니다"));
         Posts post=postsRepository.findByPostId(postId).orElseThrow(()->new WrongPostsExceptions("해당하는 게시물이 존재하지 않습니다."));
         Comments comment=commentsRepository.findByUserAndPost(user,post).orElseThrow(()->new WrongCommentExceptions("해당하는 댓글이 존재하지 않습니다."));
         comment.update(content);

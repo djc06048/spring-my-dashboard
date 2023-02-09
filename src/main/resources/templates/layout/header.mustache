@@ -1,9 +1,25 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>스프링부트 웹서비스</title>
+    <title>미니 게시판</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
+<nav class="navbar bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">미니 게시판</a>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            {{^userPicture}}
+                <a href="/oauth2/authorization/google" class="btn btn-outline-dark" role="button">시작하기</a>
+            {{/userPicture}}
+
+            {{#userPicture}}
+                <a href="/posts/save" class="btn btn-outline-dark" role="button">글 등록하기</a>
+                <img width="40px" height="40px" src="{{userPicture}}" class="profile-img" alt="image">
+                <a href="/logout" class="btn btn-outline-dark" role="button">로그아웃</a>
+            {{/userPicture}}
+        </div>
+    </div>
+</nav>

@@ -1,6 +1,5 @@
 {{>layout/header}}
 
-<h1>댓글</h1>
 <div class="col-md-12">
     <table class="table table-horizontal table-bordered">
         <thead class="thead-strong">
@@ -21,6 +20,12 @@
                 <td>{{modifiedDate}}</td>
                 <td><a href="/comments/update/{{commentId}}" class="btn btn-info">댓글 수정하기</a></td>
             </tr>
+        {{/comments}}
+
+        {{^comments}}
+            <p>아직 등록된 댓글이 없습니다</p>
+            <a href="/posts/{{postId}}/comments/save" class="btn btn-info">댓글 작성하러가기</a>
+            <br/>
         {{/comments}}
         </tbody>
     </table>

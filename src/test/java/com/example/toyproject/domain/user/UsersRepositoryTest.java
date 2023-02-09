@@ -1,7 +1,6 @@
-package com.example.toyproject.domain.users;
+package com.example.toyproject.domain.user;
 
 
-import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +13,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 public class UsersRepositoryTest {
     @Autowired
-    UsersRepository usersRepository;
+    UserRepository usersRepository;
 
-//    @After
-//    public void cleanup(){
-//        usersRepository.deleteAll();
-//    }
+
 
     @Test
     public void user_save(){
@@ -27,9 +23,9 @@ public class UsersRepositoryTest {
         String email = "blue@kakao.com";
         String pw = "1111";
         String name="blue";
-        Users user = usersRepository.save(Users.builder().password(pw).email(email).name(name).build());
+        User user = usersRepository.save(User.builder().password(pw).email(email).name(name).build());
         //when
-        List<Users> usersList=usersRepository.findAll();
+        List<User> usersList=usersRepository.findAll();
 
 
         //then

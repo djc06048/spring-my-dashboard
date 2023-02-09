@@ -1,46 +1,26 @@
 {{>layout/header}}
 
-<h1>스프링부트로 시작하는 웹 서비스 Ver.2</h1>
+
 <div class="col-md-12">
-    <div class="row">
-        <div class="col-md-6">
-            <a href="/posts/save" role="button" class="btn btn-primary" >글 등록</a>
-            {{#userName}}
-                Logged in as: <span id="user">{{userName}}</span>
-                <a href="/logout" class="btn btn-info active" role="button">Logout</a>
-            {{/userName}}
-            {{^userName}}
-                <a href="/oauth2/authorization/google" class="btn btn-success active" role="button">Google Login</a>
-            {{/userName}}
-        </div>
-        </div>
-    </div>
-    <br>
     <!-- 목록 출력 영역 -->
-    <table class="table table-horizontal table-bordered">
-        <thead class="thead-strong">
-        <tr>
-            <th>게시글번호</th>
-            <th>제목</th>
-            <th>작성자
-            <th>최종수정일</th>
-            <th>글 수정</th>
-            <th>댓글 확인하기</th>
-        </tr>
-        </thead>
-        <tbody id="tbody">
+
+    <div class="card">
+        <div class="card-header">
+            공지합니다
+        </div>
         {{#posts}}
-            <tr>
-                <td>{{postId}}</td>
-                <td>{{title}}</td>
-                <td>{{writer}}</td>
-                <td>{{modifiedDate}}</td>
-                <th><a href="/posts/update/{{postId}}" class="btn btn-warning">글 수정하기️</a></th>
-                <th><a href="/posts/{{postId}}/comments" class="btn btn-info">댓글 확인하기</a></th>
-            </tr>
+            <div class="card-body">
+                <h5 class="card-title">{{title}}</h5>
+                <p class="card-text">{{content}}</p>
+                <p class="card-text"><small class="text-muted">{{modifiedDate}}</small></p>
+                <a href="/posts/update/{{postId}}" class="btn btn-primary">글 수정하기</a>
+                <a href="/posts/{{postId}}/comments" class="btn btn-primary">댓글보기</a>
+                <a href="/posts/{{postId}}/comments/save" class="btn btn-primary">댓글등록하기</a>
+
+            </div>
         {{/posts}}
-        </tbody>
-    </table>
+    </div>
+
 </div>
 
 {{>layout/footer}}

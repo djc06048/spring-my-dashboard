@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 @Getter
 public class PostsListResponseDto {
     private Long postId;
+    private String content;
     private String title;
     private Long userId;
     private String writer;
@@ -15,6 +16,7 @@ public class PostsListResponseDto {
 
     public PostsListResponseDto(Posts Entity) {
         this.postId = Entity.getPostId();
+        this.content = Entity.getContent();
         this.userId=Entity.getUser().getUserId();
         this.title = Entity.getTitle();
         this.writer = Entity.getWriter();

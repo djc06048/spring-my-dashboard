@@ -1,6 +1,5 @@
 package com.example.toyproject.web.controller.posts;
 
-import com.example.toyproject.domain.users.Users;
 import com.example.toyproject.service.posts.PostsService;
 
 import com.example.toyproject.service.users.UserService;
@@ -25,6 +24,7 @@ public class PostApiController {
             return postsService.save(requestDto, Long.parseLong(requestDto.getUserId()));
         }catch(Exception e){
             PostsResponseDto res=new PostsResponseDto(false,e.getMessage(),null);
+            System.out.println(res.getMessage());
             return res;
         }
     }

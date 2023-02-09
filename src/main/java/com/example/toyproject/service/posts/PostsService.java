@@ -3,8 +3,8 @@ package com.example.toyproject.service.posts;
 import com.example.toyproject.domain.posts.Posts;
 import com.example.toyproject.domain.posts.PostsRepository;
 
-import com.example.toyproject.domain.users.Users;
-import com.example.toyproject.domain.users.UsersRepository;
+import com.example.toyproject.domain.user.User;
+import com.example.toyproject.domain.user.UserRepository;
 import com.example.toyproject.service.users.UserService;
 import com.example.toyproject.web.dto.posts.PostsListResponseDto;
 import com.example.toyproject.web.dto.posts.PostsResponseDto;
@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 @Service
 public class PostsService {
     private final PostsRepository postsRepository;
-    private final UsersRepository usersRepository;
+    private final UserRepository usersRepository;
     private final UserService userService;
     @Transactional(readOnly = true)
     public List<PostsListResponseDto> findAllDesc(){
@@ -35,7 +35,7 @@ public class PostsService {
     }
     @Transactional
     public PostsResponseDto save(PostsSaveRequestDto req,Long userId) {
-        Users user=usersRepository.findByUserId(userId).orElseThrow(()->new WrongUserExceptions("해당하는 유저가 존재하지 않습니다"));
+        User user=usersRepository.findByUserId(userId).orElseThrow(()->new WrongUserExceptions("해당하는 유저가 존재하지 않습니다"));
         Posts post=Posts.builder()
                 .title(req.getTitle())
                 .content(req.getContent())
@@ -47,7 +47,7 @@ public class PostsService {
     }
     @Transactional
     public PostsResponseDto update(Long postId,Long userId, PostsUpdateRequestDto req) {
-        Users user=usersRepository.findByUserId(userId).orElseThrow(()->new WrongUserExceptions("해당하는 유저가 존재하지 않습니다"));
+        User user=usersRepository.findByUserId(userId).orElseThrow(()->new WrongUserExceptions("해당하는 유저가 존재하지 않습니다"));
         Posts post=postsRepository.findByPostId(postId).orElseThrow(()->new WrongPostsExceptions("해당하는 게시물이 존재하지 않습니다."));
         checkBoardValidUser(user,post);
         post.update(req.getTitle(), req.getContent());
@@ -56,7 +56,7 @@ public class PostsService {
 
     }
 
-    private void checkBoardValidUser(Users user, Posts post) {
+    private void checkBoardValidUser(User user, Posts post) {
         if(!Objects.equals(post.getUser().getUserId(),user.getUserId())){
             throw new WrongPostsExceptions("해당 게시물을 수정할 권리가 없습니다.");
         }

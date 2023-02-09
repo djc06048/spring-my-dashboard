@@ -3,7 +3,7 @@ package com.example.toyproject.domain.comments;
 
 import com.example.toyproject.domain.BaseTimeEntity;
 import com.example.toyproject.domain.posts.Posts;
-import com.example.toyproject.domain.users.Users;
+import com.example.toyproject.domain.user.User;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -27,7 +27,7 @@ public class Comments extends BaseTimeEntity {
 
     @ManyToOne(fetch = FetchType.EAGER,cascade =CascadeType.ALL)
     @JoinColumn(name = "user_id")
-    private Users user;
+    private User user;
 
 
     @ManyToOne(fetch = FetchType.EAGER,cascade =CascadeType.ALL)
@@ -48,7 +48,7 @@ public class Comments extends BaseTimeEntity {
     }
 
 
-    public void writeUser(Users user) {
+    public void writeUser(User user) {
         this.user=user;
     }
 
