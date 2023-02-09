@@ -38,14 +38,8 @@ public class OAuthAttributes {
                 .build();
     }
 
-    public User toEntity(){
-        return User.builder()
-                .name(name)
-                .email(email)
-                .picture(picture)
-                .role(Role.USER)
-                .build();
+    public User toEntity() {
+        return User.builder().email(email).name(name).picture(picture).role(Role.USER).build();
     }
-
 
 }

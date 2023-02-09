@@ -1,5 +1,6 @@
 package com.example.toyproject.config.auth.dto;
 
+
 import com.example.toyproject.domain.user.User;
 import lombok.Getter;
 

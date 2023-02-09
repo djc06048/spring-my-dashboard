@@ -2,6 +2,7 @@ package com.example.toyproject.config.auth;
 
 import com.example.toyproject.config.auth.dto.OAuthAttributes;
 import com.example.toyproject.config.auth.dto.SessionUser;
+
 import com.example.toyproject.domain.user.User;
 import com.example.toyproject.domain.user.UserRepository;
 import jakarta.servlet.http.HttpSession;
@@ -17,7 +18,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
-
+//구글로그인 이후 가져온 사용자의 정보등을 기반으로 가입 및 정보수정, 세션등의 기능
 @RequiredArgsConstructor
 @Service
 public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {

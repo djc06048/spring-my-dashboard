@@ -1,11 +1,11 @@
-package com.example.toyproject.domain.users;
+package com.example.toyproject.domain.user;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface UsersRepository extends JpaRepository<Users,Long> {
-    Optional<Users> findByUserId(Long userId);
-    Optional<Users> findByEmail(String email);
+public interface UserRepository extends JpaRepository<User,Long> {
+    Optional<User> findByUserId(Long userId);
+    Optional<User> findByEmail(String email);
 }

@@ -1,4 +1,4 @@
-package com.example.toyproject.domain.users;
+package com.example.toyproject.domain.user;
 
 import com.example.toyproject.domain.BaseTimeEntity;
 import com.example.toyproject.domain.comments.Comments;
@@ -11,9 +11,9 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 @Getter
-
+@NoArgsConstructor
 @Entity
-public class Users extends BaseTimeEntity {
+public class User extends BaseTimeEntity {
     @Id
     @Column(name="user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,7 +42,7 @@ public class Users extends BaseTimeEntity {
 
 
     @Builder
-    public Users(String name, String email, String picture,String password, Role role) {
+    public User(String name, String email, String picture, String password, Role role) {
         this.name = name;
         this.email = email;
         this.picture = picture;
@@ -60,7 +60,7 @@ public class Users extends BaseTimeEntity {
         savedComment.writeUser(this);
     }
     //소셜로그인파트
-    public Users update(String name, String picture){
+    public User update(String name, String picture){
         this.name=name;
         this.picture=picture;
         return this;
