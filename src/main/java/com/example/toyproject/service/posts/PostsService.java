@@ -41,7 +41,6 @@ public class PostsService {
 
     @Transactional
     public PostsResponseDto save(PostsSaveRequestDto req) {
-        //TODO: 스프링 시큐리티로 특정 api 접근 막아서 userId api 요청에서 제거하기
         Long userId = req.getUserId();
 
         User user = usersRepository.getReferenceById(userId);
@@ -58,7 +57,6 @@ public class PostsService {
     }
     @Transactional
     public PostsResponseDto update(Long postId,Long userId, PostsUpdateRequestDto req) {
-        //TODO: 스프링 시큐리티로 특정 api 접근 막아서 userId api 요청에서 제거하기
         User user=usersRepository.findByUserId(userId).orElseThrow(()->new WrongUserExceptions("해당하는 유저가 존재하지 않습니다"));
         Posts post=postsRepository.findByPostId(postId).orElseThrow(()->new WrongPostsExceptions("해당하는 게시물이 존재하지 않습니다."));
         //user의 Id와 Post의 id가 다를 경우 오류 메시지
