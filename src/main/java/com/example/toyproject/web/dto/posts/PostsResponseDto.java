@@ -17,6 +17,7 @@ public class PostsResponseDto {
 
     private Boolean success;
     private String message;
+    //FIXME: json 파싱시 널일때 값이 찍히나 안찍히나를 나타냄
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String title;
     @JsonInclude(JsonInclude.Include.NON_NULL)

@@ -8,12 +8,13 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Posts extends BaseTimeEntity {
     @Id
@@ -37,23 +38,26 @@ public class Posts extends BaseTimeEntity {
     @OneToMany(mappedBy = "post",cascade = CascadeType.ALL)
     private List<Comments> comments=new ArrayList<>();
 
-    public Posts(){}
     @Builder
-    public Posts(String writer,String title, String content) {
+    public Posts(String writer, String title, String content, User user) {
         this.writer = writer;
+        this.title = title;
+        this.content = content;
+        this.user = user;
+    }
+
+    public void update(String title, String content) {
         this.title = title;
         this.content = content;
     }
 
-    public void update(String title,String content){
-        this.title=title;
-        this.content=content;
-    }
-    public void createdByUser(User user){
-        this.user=user;
+    public void createdByUser(User user) {
+        this.user = user;
     }
 
 
+    //commentService에서 post의 comment리스트에 comment 저장시
+    //comment의 대상인 Post 저장 및 post의 comment 리스트에도 저장
     public void writeComment(Comments savedComment) {
         this.comments.add(savedComment);
         savedComment.writtenPost(this);

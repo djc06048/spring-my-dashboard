@@ -16,27 +16,31 @@ import org.springframework.web.bind.annotation.*;
 public class PostApiController {
     private final PostsService postsService;
     private final UserService userService;
-    @PostMapping(value="posts", consumes = "application/json")
-    public PostsResponseDto save(@RequestBody PostsSaveRequestDto requestDto){
-        System.out.println("requestDto.getContent() = " + requestDto.getContent());
-        System.out.println("requestDto.getUserId() = " + requestDto.getUserId());
-        try{
-            return postsService.save(requestDto, Long.parseLong(requestDto.getUserId()));
-        }catch(Exception e){
-            PostsResponseDto res=new PostsResponseDto(false,e.getMessage(),null);
+
+    //title,content, userId를 body로 해서 post 저장
+    @PostMapping(value = "posts", consumes = "application/json")
+    public PostsResponseDto save(@RequestBody PostsSaveRequestDto requestDto) {
+        try {
+            return postsService.save(requestDto);
+        } catch (Exception e) {
+            PostsResponseDto res = new PostsResponseDto(false, e.getMessage(), null);
             System.out.println(res.getMessage());
             return res;
         }
     }
+
+    //postId, userId pathVariable로 받고,
+    //title과 content body로 요청받아 post 업데이트
     @PutMapping("/posts/{postId}/users/{userId}")
-    public PostsResponseDto update(@PathVariable Long postId, @PathVariable Long userId,@RequestBody PostsUpdateRequestDto requestDto){
-        try{
-            return postsService.update(postId,userId,requestDto);
-        }catch(Exception e){
-            return new PostsResponseDto(false,e.getMessage(),null);
+    public PostsResponseDto update(@PathVariable Long postId, @PathVariable Long userId, @RequestBody PostsUpdateRequestDto requestDto) {
+        try {
+            return postsService.update(postId, userId, requestDto);
+        } catch (Exception e) {
+            return new PostsResponseDto(false, e.getMessage(), null);
         }
     }
 
+    //postId를 pathVariable로 받아서 해당 포스트 불러오기
     @GetMapping("/posts/{postId}")
     public PostsResponseDto findById(@PathVariable Long postId){
         try{
