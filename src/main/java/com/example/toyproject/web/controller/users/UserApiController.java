@@ -5,6 +5,7 @@ import com.example.toyproject.web.dto.users.request.userJoinRequestDto;
 import com.example.toyproject.web.dto.users.request.userLoginRequestDto;
 import com.example.toyproject.web.dto.users.response.LoginResponseDto;
 import com.example.toyproject.web.dto.users.response.UserResponseDto;
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/users")
 @RestController
+@Hidden
 public class UserApiController {
     private final UserService userService;
 
