@@ -15,7 +15,8 @@ public class SecurityConfig  {
     public SecurityFilterChain filterChain(HttpSecurity http) throws  Exception{
        http.csrf().disable().headers().frameOptions().disable();
        http.authorizeHttpRequests()
-               .requestMatchers("/","/css/**","/images/**","/js/**","/h2-console/**").permitAll()
+               .requestMatchers("/", "/css/**", "/images/**", "/js/**", "/h2-console/**").permitAll()
+               .requestMatchers("/v3/api-docs/**", "/swagger-ui/**").permitAll()
                .requestMatchers("/api/v1/**").hasRole(Role.USER.name())
                .anyRequest().permitAll()
                //TODO: redirect logout
