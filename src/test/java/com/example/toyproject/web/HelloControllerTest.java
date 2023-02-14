@@ -15,6 +15,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @Disabled
 @WebMvcTest(controllers = HelloController.class)
+//JPA 기능은 테스트가 안됨, 따라서 JPA 관련 테스트 시에는
+//@SpringBootTest, TestRestTemplate 사용하자
 public class HelloControllerTest {
     @Autowired
     private MockMvc mvc;
