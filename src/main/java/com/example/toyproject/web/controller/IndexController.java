@@ -53,7 +53,7 @@ public class IndexController {
             //TODO: 리다이렉트아닌, 경고창 띄어주기
             log.info("로그인이 필요합니다");
             model.addAttribute("posts", postsService.findAllDesc());
-            return "index";
+            return "redirect:/";
         }
 
 
@@ -74,14 +74,14 @@ public class IndexController {
                 //글을 작성한 사용자가 아닌 경우, index 페이지로 리다이렉트
                 //TODO: 리다이렉트아닌, 경고창 띄어주기
                 model.addAttribute("posts", postsService.findAllDesc());
-                return "index";
+                return "redirect:/";
             }
         } else {
             //로그인이 안된 사용자인 경우, index 페이지로 리다이렉트
             //TODO: 리다이렉트아닌, 경고창 띄어주기
             log.info("로그인이 필요합니다");
             model.addAttribute("posts", postsService.findAllDesc());
-            return "index";
+            return "redirect:/";
         }
     }
 
@@ -105,11 +105,11 @@ public class IndexController {
             model.addAttribute("userPicture", user.getPicture());
             return "comments-save";
         } else {
-            //로그인이 안된 사용자의 경우 홈화면으로 리다이렉트
+            //로그인이 안된 사용자의 경우 홈화면으로 리다이렉트 or comments로 리다이렉트
             //TODO: 리다이렉트아닌, 경고창 띄어주기
             log.info("로그인이 필요합니다");
             model.addAttribute("posts", postsService.findAllDesc());
-            return "index";
+            return "redirect:/";
         }
 
 
