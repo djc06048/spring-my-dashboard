@@ -36,7 +36,7 @@ var main = {
             alert(JSON.stringify(error));
         });
     },
-
+    //댓글 등록
     commentSave: function(){
         var data = {
             postId: $('#comment_postId').val(),
