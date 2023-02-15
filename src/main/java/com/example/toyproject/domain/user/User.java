@@ -50,15 +50,6 @@ public class User extends BaseTimeEntity {
         this.password = password;
     }
 
-    public void writePost(Posts savedPost) {
-        this.posts.add(savedPost);
-        savedPost.createdByUser(this);
-    }
-
-    public void writeComment(Comments savedComment) {
-        this.comments.add(savedComment);
-        savedComment.writeUser(this);
-    }
     //소셜로그인파트
     public User update(String name, String picture){
         this.name=name;

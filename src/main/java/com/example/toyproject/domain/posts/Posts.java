@@ -51,15 +51,4 @@ public class Posts extends BaseTimeEntity {
         this.content = content;
     }
 
-    public void createdByUser(User user) {
-        this.user = user;
-    }
-
-
-    //commentService에서 post의 comment리스트에 comment 저장시
-    //comment의 대상인 Post 저장 및 post의 comment 리스트에도 저장
-    public void writeComment(Comments savedComment) {
-        this.comments.add(savedComment);
-        savedComment.writtenPost(this);
-    }
 }
