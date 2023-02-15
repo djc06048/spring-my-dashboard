@@ -97,5 +97,14 @@ public class PostsService {
 
     }
 
+    /**
+     * search
+     */
+    @Transactional
+    public List<Posts> search(String keyword) {
+        List<Posts> postsList = postsRepository.findByTitleContaining(keyword);
+        return postsList;
+    }
+
 
 }

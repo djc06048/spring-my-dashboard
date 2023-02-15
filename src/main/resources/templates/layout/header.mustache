@@ -2,23 +2,35 @@
 <html>
 <head>
     <title>미니 게시판</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
-<nav class="navbar bg-light">
+<nav class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">미니 게시판</a>
+        <a class="navbar-brand" href="/">미니 게시판</a>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             {{^userPicture}}
-                <a href="/oauth2/authorization/google" class="btn btn-outline-dark" role="button">시작하기</a>
+                <form action="/posts/search" method="GET" class="form-inline bd-highlight" role="search">
+                    <input type="text" name="keyword" class="form-control" id="search" placeholder="검색">
+                    <button class="btn btn-outline-success">search</button>
+                </form>
+                <div>
+                    <a href="/oauth2/authorization/google" class="btn btn-outline-dark" role="button">시작하기</a>
+                </div>
             {{/userPicture}}
 
             {{#userPicture}}
-                <a href="/posts/save" class="btn btn-outline-dark" role="button">글 등록하기</a>
-                <img width="40px" height="40px" src="{{userPicture}}" class="profile-img" alt="image">
-                <a href="/logout" class="btn btn-outline-dark" role="button">로그아웃</a>
+                <form action="/posts/search" method="GET" class="form-inline bd-highlight" role="search">
+                    <input type="text" name="keyword" class="form-control" id="search" placeholder="검색">
+                    <button class="btn btn-outline-success">search</button>
+                </form>
+                <div>
+                    <a href="/posts/save" class="btn btn-outline-dark" role="button">글 등록하기</a>
+                    <a href="/logout" class="btn btn-outline-dark" role="button">로그아웃</a>
+                    <img width="40px" height="40px" src="{{userPicture}}" class="profile-img" alt="image">
+
+                </div>
             {{/userPicture}}
         </div>
     </div>

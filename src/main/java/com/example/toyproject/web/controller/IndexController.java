@@ -2,6 +2,7 @@ package com.example.toyproject.web.controller;
 
 import com.example.toyproject.config.auth.LoginUser;
 import com.example.toyproject.config.auth.dto.SessionUser;
+import com.example.toyproject.domain.posts.Posts;
 import com.example.toyproject.domain.user.User;
 import com.example.toyproject.domain.user.UserRepository;
 import com.example.toyproject.service.comments.CommentService;
@@ -10,6 +11,7 @@ import com.example.toyproject.web.dto.comments.CommentResponseDto;
 import com.example.toyproject.web.dto.comments.CommentUpdateRequestDto;
 import com.example.toyproject.web.dto.posts.PostsResponseDto;
 import com.example.toyproject.web.utils.WrongUserExceptions;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +20,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
@@ -141,6 +145,21 @@ public class IndexController {
         }
 
 
+    }
+
+    /**
+     * search
+     */
+    @GetMapping("/posts/search")
+    public String search(String keyword, Model model, @LoginUser SessionUser user) {
+        if (user != null) {
+            model.addAttribute("user", user);
+            model.addAttribute("userPicture", user.getPicture());
+        }
+        List<Posts> searchList = postsService.search(keyword);
+        log.info(searchList.get(0).getLastModifiedAt());
+        model.addAttribute("searchList", searchList);
+        return "posts-search";
     }
 
 
