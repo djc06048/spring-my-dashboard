@@ -1,5 +1,7 @@
 package com.example.toyproject.domain.posts;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import java.util.List;
@@ -14,7 +16,7 @@ public interface PostsRepository extends JpaRepository<Posts, Long> {
     List<Posts> findAllDesc();
 
     //    @Query("select p from Posts p where p.title like %:keyword%")
-    List<Posts> findByTitleContaining(String keyword);
+    Page<Posts> findByTitleContaining(String keyword, Pageable pageable);
     //JpaRepository에서 메소드명의 By 이후는 SQL의 where 조건 절에 대응되는데,
     //위와 같이 Containing을 붙여주면 Like 검색이 가능해진다. 즉, %{keyword}%가 가능
 

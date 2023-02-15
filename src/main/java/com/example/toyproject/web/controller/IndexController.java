@@ -16,6 +16,10 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -149,16 +153,22 @@ public class IndexController {
 
     /**
      * search
+     * 최신순으로 정렬
      */
     @GetMapping("/posts/search")
-    public String search(String keyword, Model model, @LoginUser SessionUser user) {
+    public String search(String keyword, Model model, @LoginUser SessionUser user, @PageableDefault(size=3,sort = "lastModifiedAt", direction = Sort.Direction.DESC) Pageable pageable) {
         if (user != null) {
             model.addAttribute("user", user);
             model.addAttribute("userPicture", user.getPicture());
         }
-        List<Posts> searchList = postsService.search(keyword);
-        log.info(searchList.get(0).getLastModifiedAt());
+        Page<Posts> searchList = postsService.search(keyword,pageable);
         model.addAttribute("searchList", searchList);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("previous", pageable.previousOrFirst().getPageNumber());
+        model.addAttribute("next", pageable.next().getPageNumber());
+        model.addAttribute("hasNext", searchList.hasNext());
+        model.addAttribute("hasPrev", searchList.hasPrevious());
+
         return "posts-search";
     }
 
