@@ -1,0 +1,26 @@
+{{>layout/header}}
+
+
+<div class="col-md-12">
+    <!-- 목록 출력 영역 -->
+
+    <div class="card">
+        <div class="card-header">
+            공지합니다
+        </div>
+        {{#searchList}}
+            <div class="card-body">
+                <h5 class="card-title">{{title}}</h5>
+                <p class="card-text">{{content}}</p>
+                <p class="card-text"><small class="text-muted">{{lastModifiedAt}}</small></p>
+                <a href="/posts/update/{{postId}}" class="btn btn-primary">글 수정하기</a>
+                <a href="/posts/{{postId}}/comments" class="btn btn-primary">댓글보기</a>
+                <a href="/posts/{{postId}}/comments/save" class="btn btn-primary">댓글등록하기</a>
+
+            </div>
+        {{/searchList}}
+    </div>
+
+</div>
+
+{{>layout/footer}}
